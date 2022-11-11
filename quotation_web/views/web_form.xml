@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="quotation_menu_item" model="website.menu">
+        <field name="name">Add Quotation</field>
+        <field name="url">/add_quotation</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">52</field>
+    </record>
+
+    <template id="add_quotation" name="Add Quotation">
+
+        <t t-call="website.layout">
+            <h1 class="text-center">Add Quotation</h1>
+            <div class="wrap">
+                <div class="oe_structure">
+                    <div class="container">
+                        <form role="form" method="POST" action="/create_quotation">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="partner_id" class="form-label">Customer</label>
+                                    <select name="partner_id" class="form-control">
+                                        <t t-foreach="customer_record" t-as="customer">
+                                            <option t-esc="customer.name" t-att-value="customer.id"/>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="validity_date" class="form-label">Expiration</label>
+                                    <input name="validity_date" id="validity_date" type="date" class="form-control"
+                                           t-att-value="validity_date" placeholder="Expiration"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="partner_invoice_id" class="form-label">Invoice Address</label>
+                                    <select name="partner_invoice_id" class="form-control">
+                                        <t t-foreach="customer_record" t-as="customer">
+                                            <option t-esc="customer.name" t-att-value="customer.id"/>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="pricelist_id" class="form-label">Pricelist</label>
+                                    <select name="pricelist_id" class="form-control">
+                                        <t t-foreach="price_list_record" t-as="pl">
+                                            <option t-esc="pl.name" t-att-value="pl.id"/>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="partner_shipping_id" class="form-label">Delivery Address</label>
+                                    <select name="partner_shipping_id" class="form-control">
+                                        <t t-foreach="customer_record" t-as="customer">
+                                            <option t-esc="customer.name" t-att-value="customer.id"/>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="payment_term_id" class="form-label">Payment Terms</label>
+                                    <select name="payment_term_id" class="form-control">
+                                        <t t-foreach="payment_terms_record" t-as="pt">
+                                            <option t-esc="pt.name" t-att-value="pt.id"/>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="sale_order_template_id" class="form-label">Quotation Template</label>
+                                    <select name="sale_order_template_id" class="form-control">
+                                        <t t-foreach="quotation_template_record" t-as="qt">
+                                            <option t-esc="qt.name" t-att-value="qt.id"/>
+                                        </t>
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="sale_description" class="form-label">Sale Description</label>
+                                    <input type="text" name="sale_description" id="sale_description"
+                                           t-att-value="sale_description" class="form-control"/>
+                                </div>
+
+                            </div>
+                            <br/>
+                            <div class="clearfix oe_login_buttons">
+                                <button type="submit" class="btn btn-primary center">Submit Form</button>
+                            </div>
+                            <br/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
